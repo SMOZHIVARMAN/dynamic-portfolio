@@ -35,13 +35,22 @@ const AwardsSection = () => {
   }
 
   return (
-    <SectionWrapper id="awards" title="Awards & Achievements" subtitle="Recognitions and accomplishments">
+    <SectionWrapper
+      id="awards"
+      title="Awards & Achievements"
+      subtitle="Recognitions and accomplishments"
+    >
       <div className="relative">
+        {/* Navigation */}
         <div className="absolute top-1/2 -translate-y-1/2 -left-4 z-10">
-          <button onClick={prev} className="slider-btn"><ChevronLeft className="w-5 h-5 text-foreground" /></button>
+          <button onClick={prev} className="slider-btn">
+            <ChevronLeft className="w-5 h-5 text-foreground" />
+          </button>
         </div>
         <div className="absolute top-1/2 -translate-y-1/2 -right-4 z-10">
-          <button onClick={next} className="slider-btn"><ChevronRight className="w-5 h-5 text-foreground" /></button>
+          <button onClick={next} className="slider-btn">
+            <ChevronRight className="w-5 h-5 text-foreground" />
+          </button>
         </div>
 
         <AnimatePresence mode="wait">
@@ -53,42 +62,86 @@ const AwardsSection = () => {
             transition={{ duration: 0.4 }}
             className="glass-card rounded-2xl overflow-hidden"
           >
-            <div className="grid grid-cols-1 lg:grid-cols-2">
-              <div className="relative h-64 lg:h-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* LEFT: Image (MEDIUM SIZE) */}
+              <div className="flex items-center justify-center p-6">
                 {award.achievement_image ? (
-                  <img src={award.achievement_image} alt={award.achievements_title} className="w-full h-full object-cover" />
+                  <img
+                    src={award.achievement_image}
+                    alt={award.achievements_title}
+                    onClick={() => setViewImage(award.achievement_image)}
+                    className="
+                      cursor-zoom-in
+                      w-full
+                      max-w-[360px]
+                      max-h-[420px]
+                      object-contain
+                      rounded-xl
+                    "
+                  />
                 ) : (
-                  <div className="w-full h-full bg-secondary flex items-center justify-center min-h-[250px]">
+                  <div className="w-full h-64 bg-secondary flex items-center justify-center rounded-xl">
                     <span className="text-muted-foreground">No image</span>
                   </div>
                 )}
-                <div className="absolute bottom-4 left-4">
-                  <h3 className="text-lg font-bold text-foreground bg-background/60 backdrop-blur-sm px-3 py-1 rounded-lg">
-                    {award.achievements_title}
-                  </h3>
-                </div>
               </div>
 
+              {/* RIGHT: Content */}
               <div className="p-6 lg:p-8 flex flex-col justify-center">
+                {/* Title badge + mode */}
                 <div className="flex items-center justify-between mb-4">
-                  {award.achievements_mode && <span className="badge-domain">{award.achievements_mode}</span>}
+                  <div className="flex flex-wrap gap-2">
+                    {/* ✅ achievements_title as BADGE */}
+                    {award.achievements_title && (
+                      <span className="badge-skill">
+                        {award.achievements_title}
+                      </span>
+                    )}
+
+                    {award.achievements_mode && (
+                      <span className="badge-domain">
+                        {award.achievements_mode}
+                      </span>
+                    )}
+                  </div>
+
                   <div className="flex gap-2">
                     {award.achievement_download_link && (
-                      <a href={award.achievement_download_link} target="_blank" rel="noopener noreferrer" className="slider-btn w-9 h-9">
+                      <a
+                        href={award.achievement_download_link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="slider-btn w-9 h-9"
+                      >
                         <Download className="w-4 h-4 text-foreground" />
                       </a>
                     )}
-                    <button onClick={() => setViewImage(award.achievement_image || null)} className="slider-btn w-9 h-9">
+                    <button
+                      onClick={() =>
+                        setViewImage(award.achievement_image || null)
+                      }
+                      className="slider-btn w-9 h-9"
+                    >
                       <Eye className="w-4 h-4 text-foreground" />
                     </button>
                   </div>
                 </div>
-                <p className="text-muted-foreground text-sm leading-relaxed">{award.achievements_description}</p>
 
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  {award.achievements_description}
+                </p>
+
+                {/* Pagination dots */}
                 <div className="flex gap-1.5 mt-6">
                   {awards.map((_, i) => (
-                    <button key={i} onClick={() => setCurrent(i)}
-                      className={`h-1.5 rounded-full transition-all duration-300 ${i === current ? "w-6 bg-primary" : "w-1.5 bg-muted"}`}
+                    <button
+                      key={i}
+                      onClick={() => setCurrent(i)}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${
+                        i === current
+                          ? "w-6 bg-primary"
+                          : "w-1.5 bg-muted"
+                      }`}
                     />
                   ))}
                 </div>
