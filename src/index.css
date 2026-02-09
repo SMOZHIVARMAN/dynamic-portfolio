@@ -1,0 +1,153 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 230 25% 4%;
+    --foreground: 210 20% 92%;
+    --card: 230 20% 7%;
+    --card-foreground: 210 20% 92%;
+    --popover: 230 20% 7%;
+    --popover-foreground: 210 20% 92%;
+    --primary: 192 95% 55%;
+    --primary-foreground: 230 25% 4%;
+    --secondary: 230 15% 12%;
+    --secondary-foreground: 210 20% 85%;
+    --muted: 230 15% 15%;
+    --muted-foreground: 220 10% 50%;
+    --accent: 265 80% 65%;
+    --accent-foreground: 210 20% 92%;
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 210 20% 92%;
+    --border: 230 15% 18%;
+    --input: 230 15% 15%;
+    --ring: 192 95% 55%;
+    --radius: 0.75rem;
+
+    --sidebar-background: 230 25% 6%;
+    --sidebar-foreground: 210 20% 85%;
+    --sidebar-primary: 192 95% 55%;
+    --sidebar-primary-foreground: 230 25% 4%;
+    --sidebar-accent: 230 15% 12%;
+    --sidebar-accent-foreground: 210 20% 85%;
+    --sidebar-border: 230 15% 15%;
+    --sidebar-ring: 192 95% 55%;
+
+    /* Custom design tokens */
+    --glow-primary: 0 0 20px hsl(192 95% 55% / 0.3), 0 0 60px hsl(192 95% 55% / 0.1);
+    --glow-accent: 0 0 20px hsl(265 80% 65% / 0.3), 0 0 60px hsl(265 80% 65% / 0.1);
+    --glass-bg: hsl(230 20% 8% / 0.6);
+    --glass-border: hsl(210 20% 92% / 0.08);
+    --gradient-primary: linear-gradient(135deg, hsl(192 95% 55%), hsl(265 80% 65%));
+    --gradient-dark: linear-gradient(180deg, hsl(230 25% 4%), hsl(230 25% 6%));
+    --gradient-card: linear-gradient(135deg, hsl(230 20% 8%), hsl(230 20% 6%));
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  ::selection {
+    background: hsl(192 95% 55% / 0.3);
+    color: hsl(210 20% 92%);
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: hsl(230 25% 4%);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(230 15% 18%);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(192 95% 55% / 0.5);
+  }
+}
+
+@layer components {
+  .glass-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .glow-primary {
+    box-shadow: var(--glow-primary);
+  }
+
+  .glow-accent {
+    box-shadow: var(--glow-accent);
+  }
+
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .badge-skill {
+    @apply px-3 py-1 rounded-full text-xs font-medium;
+    background: hsl(192 95% 55% / 0.1);
+    border: 1px solid hsl(192 95% 55% / 0.2);
+    color: hsl(192 95% 55%);
+  }
+
+  .badge-domain {
+    @apply px-3 py-1 rounded-full text-xs font-medium;
+    background: hsl(265 80% 65% / 0.1);
+    border: 1px solid hsl(265 80% 65% / 0.2);
+    color: hsl(265 80% 65%);
+  }
+
+  .nav-link {
+    @apply relative text-sm font-medium transition-colors duration-300;
+    color: hsl(220 10% 50%);
+  }
+  .nav-link:hover, .nav-link.active {
+    color: hsl(192 95% 55%);
+  }
+  .nav-link::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-full h-0.5 scale-x-0 transition-transform duration-300 origin-left;
+    background: hsl(192 95% 55%);
+  }
+  .nav-link:hover::after, .nav-link.active::after {
+    @apply scale-x-100;
+  }
+
+  .slider-btn {
+    @apply flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300;
+    background: hsl(230 20% 10% / 0.8);
+    border: 1px solid hsl(210 20% 92% / 0.1);
+  }
+  .slider-btn:hover {
+    background: hsl(192 95% 55% / 0.15);
+    border-color: hsl(192 95% 55% / 0.4);
+    box-shadow: 0 0 15px hsl(192 95% 55% / 0.2);
+  }
+
+  .mono-text {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
